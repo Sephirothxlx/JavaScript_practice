@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="s" ng-controller="mycontroller">
+        <h1>Hello {{clock}}</h1>
+    </div>
+
+    <script type="text/javascript">
+        var app = angular.module("s", []);
+        app.controller("mycontroller", function($scope, $timeout){
+            var update = function () {
+                $scope.clock = new Date();
+                $timeout(function () {
+                    update();
+                }, 1000);
+            };
+            update();
+            $scope.clock=1;
+        });
+    </script>
+
+</body>
+
+</html>
