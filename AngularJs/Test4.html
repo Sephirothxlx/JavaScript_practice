@@ -7,21 +7,28 @@
 
 <body>
     <div ng-app="s" ng-controller="mycontroller">
-        <h1>Hello {{clock.now}}</h1>
+        <h1>Hello {{clock.now-clock.past}}</h1>
     </div>
 
     <script type="text/javascript">
         var app = angular.module("s", []);
-        app.controller("mycontroller", function($scope){
+        app.controller("mycontroller", function($scope, $parse){
             $scope.clock={
-                now: new Date()
+                now: new Date(),
+                past: new Date()
             };
             var update = function () {
+                $scope.past=$scope.now;
                 $scope.clock.now=new Date();
             };
             setInterval(function(){
                 $scope.$apply(update);
             },1000);
+            $scope.$watch('clock.now-clock.past',function(a,b,c){
+                if(a-b>1000){
+                    alert(c);
+                }
+            },true);
             update();
         });
     </script>

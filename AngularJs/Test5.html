@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="s" ng-controller="mycontroller">
+        <input ng-model = "to" type="email" placeholder="Recipient"/>
+        <textarea ng-model="emailBody"></textarea>
+        <p>{{previewText}}</p>
+        <form novalidate>
+            <input type="number" ng-minlength="5"/>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        var app = angular.module("s", [])
+        app.controller("mycontroller", function($scope, $interpolate){
+            $scope.$watch('emailBody',function(body){
+                if(body){
+                    var template = $interpolate(body)
+                    $scope.previewText=template({to:$scope.to})
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>
